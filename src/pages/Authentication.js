@@ -1,126 +1,137 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import '../asset/css/auth.css'
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth'
+import { GoogleButton } from 'react-google-button'
+import {
+  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
+  GoogleAuthProvider,
+  signInWithRedirect,
+} from 'firebase/auth'
 import { auth } from '../firebase'
 import { useNavigate } from 'react-router-dom'
 
 const Authentication = () => {
 
-  const [changeForm, setChangeForm] = useState(false)
+  const [changeForm, setChangeForm] = useState(true)
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [confirmPassword, setConfirmPassword] = useState("")
-  const [errorLogin, setErrorLogin] = useState(false)
-  const [errorRegister, setErrorRegister] = useState(false)
-  const navigate = useNavigate()
-  const [loading, setLoading] = useState(true)
+  const [isError, setIsError] = useState(false)
   const [errorMessage, setErrorMessage] = useState("")
+  const navigate = useNavigate()
 
-  const handleLogin = async (e) => {
+  const handleSignIn = async (e) => {
     e.preventDefault()
-    await signInWithEmailAndPassword(auth, email, password)
-      .then(() => {
-        navigate("/Home")
-      })
-      .catch(() => {
-        setErrorLogin(true)
-      })
+    try {
+      await signInWithEmailAndPassword(auth, email, password)
+      navigate("/dashboard")
+    } catch (error) {
+      setIsError(true)
+      setErrorMessage("Login Failed")
+    }
   }
 
-
-  const handleRegister = async (e) => {
+  const handleSignUp = async (e) => {
     e.preventDefault()
     if (password !== confirmPassword) {
-      setErrorRegister(true)
-      setErrorMessage("Password and Confirm Password Not Match")
+      setIsError(true)
+      setErrorMessage("Password and Confirm Password Not Same")
       return
-    } else if(email == "" || password == "" || confirmPassword == ""){
-      setErrorRegister(true)
-      setErrorMessage("email/password empty")
-      return
+    } else if(email === "" || password === "" || confirmPassword === "" ){
+      setIsError(true)
+      setErrorMessage("Email/Password Empty")
     }
-    await createUserWithEmailAndPassword(auth, email, password)
-      .then(() => {
-        navigate("/home")
-      })
-      .catch(()=>{
-        setErrorRegister(true)
-        setErrorMessage("email already exist")
-      })
+    try {
+      await createUserWithEmailAndPassword(auth, email, password)
+      navigate("/dashboard")
+    } catch (error) {
+      setIsError(true)
+      setErrorMessage("Account Already Exist")
+    }
   }
 
-  useEffect(() => {
-    auth.onAuthStateChanged((user) => {
-      if (user) {
-        navigate("/home")
+  const signInWithGoogle = async() => {
+    const provider = new GoogleAuthProvider()
+    await signInWithRedirect(auth, provider)
+    navigate("/dashboard")
+  }
+
+  useEffect(()=>{
+    auth.onAuthStateChanged((user)=>{
+      if(user){
+        navigate("/dashboard")
       }
     })
-  }, [])
-
+  },[])
 
   return (
-    <div className='auth-body'>
-      {loading ? 
-        changeForm ?
-          <div className='auth-box-register'>
-            <h1>Register</h1>
-            {errorRegister && <span style={{ color: "red" }}>{errorMessage}</span>}
-            <form onSubmit={handleRegister}>
-              <input
-                type="email"
-                className="mt-3 auth-input"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder='Email'
-              />
-              <input
-                type="password"
-                className=" mt-3 auth-input"
-                minLength="8"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                placeholder='Password'
-              />
-              <input
-                type="password"
-                className=" mt-3 auth-input"
-                minLength="8"
-                value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
-                placeholder='Confirm Password'
-              />
-              <button className="btn btn-outline-light mt-3 mb-3 auth-button">Register</button>
-            </form>
-            <span>Already Have Account? <a onClick={() => setChangeForm(false)} className="change-button">Login</a> Here</span>
-          </div>
-          :
-          <div className='auth-box-login'>
-            <h1>Login</h1>
-            {errorLogin && <span style={{ color: "red" }}>Login Failed</span>}
-            <form onSubmit={handleLogin}>
-              <input
-                type="email"
-                className="mt-3 auth-input"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder='Email'
-              />
-              <input
-                type="password"
-                className="mt-3 auth-input"
-                minLength="8"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                placeholder='Password'
-              />
-              <button className="btn btn-outline-light mt-3 mb-3 auth-button">Login</button>
-            </form>
-            <span>Don't Have Account? <a onClick={() => setChangeForm(true)} className="change-button">Register</a> Here</span>
-          </div>
-          : 
-          <h1>Loading...</h1>
-        }
-    </div>
+    <div className='auth-container'>
+      <div className='auth-img'>
+        <img src='./images/auth2.png' />
+      </div>
+      {changeForm ?
+        <div div className='auth-form'>
+          <h2><strong>Sign In</strong></h2>
+          {isError && <span className='mt-2 mb-2' style={{ color: "red" }}>{errorMessage}</span>}
+          <GoogleButton onClick={signInWithGoogle} style={{ width: "300px", color: "black", backgroundColor: "white" }} />
+          <form className='mt-3' onSubmit={handleSignIn}>
+            <input
+              type="email"
+              className="form-control"
+              placeholder='Email'
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            <input
+              type="password"
+              className="form-control"
+              placeholder='Password'
+              minLength="8"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <button className='btn btn-dark mb-3'>Sign In</button>
+          </form>
+          <span>Don't have account? <a onClick={() => setChangeForm(false)}><strong>Sign Up</strong></a> Here</span>
+        </div>
+        :
+        <div className='auth-form'>
+          <h2><strong>Sign Up</strong></h2>
+          {isError && <span className='mt-2 mb-2' style={{ color: "red" }}>{errorMessage}</span>}
+          <GoogleButton onClick={signInWithGoogle} style={{ width: "300px", color: "black", backgroundColor: "white" }} />
+          <form className='mt-3 mb-2' onSubmit={handleSignUp}>
+            <input
+              type="email"
+              className="form-control"
+              placeholder='Email'
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            <input
+              type="password"
+              className="form-control"
+              placeholder='Password'
+              minLength="8"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <input
+              type="password"
+              className="form-control"
+              placeholder='Confirm Password'
+              minLength="8"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+            />
+            <button className='btn btn-dark mb-2'>Sign Up</button>
+          </form>
+          <span>Already have account? <a onClick={() => setChangeForm(true)}><strong>Sign In</strong></a> Here</span>
+        </div>
+      }
+      <div className='auth-img'>
+        <img src='./images/auth1.png' />
+      </div>
+    </div >
   )
 }
 
