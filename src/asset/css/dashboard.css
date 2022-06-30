@@ -1,0 +1,61 @@
+.dashboard{
+  display: flex;
+}
+.dashboard-form{
+  width: 50%;
+}
+.dashboard-form form{
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+}
+.form-btn button{
+  width: 100px;
+}
+.dashboard-card{
+  width: 50%;
+}
+.card-container{
+  display: flex;
+  padding: 10px;
+  flex-direction: column;
+  overflow: auto;
+  text-align: center;
+  max-height: 500px;
+}
+.card-container::-webkit-scrollbar{
+  width: 5px;
+  background-color: rgb(250, 250, 250);
+}
+.card-container::-webkit-scrollbar-thumb{
+  background-color: #212529;
+}
+.action{
+  display: flex;
+  justify-content: flex-end;
+}
+.dashboard-cardheader{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: white;
+  padding: 0 0px 0 15px;
+  background-color: #212529;
+}
+@media screen and (max-width: 991px) {
+  .dashboard{
+    flex-direction: column;
+  }
+  .dashboard-form{
+    width: 100%;
+  }
+  .dashboard-card{
+    width: 100%;
+  }
+  .form-btn{
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+  
+  }
+}
