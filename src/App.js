@@ -1,17 +1,17 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
-import Authentication from './pages/Authentication';
-import Particle from './components/Particle';
-import Home from './pages/Home';
+import {Dashboard, Welcome, Authentication} from './pages/'
+import Navbar from './components/NavigationBar'
 
 function App() {
 
   return (
     <>
       <Router>
-        <Particle />
+        <Navbar />
         <Routes>
-          <Route path="/" element={<Authentication />} />
-          <Route path="/home" element={<Home />} />
+          <Route path="/" element={<Welcome />} />
+          <Route path="/auth" element={<Authentication />} />
+          <Route path="/dashboard" element={<Dashboard />} />
         </Routes>
       </Router>
     </>
