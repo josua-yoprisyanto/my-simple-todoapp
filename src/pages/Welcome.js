@@ -1,8 +1,9 @@
 import React, { useEffect } from 'react'
 import '../asset/css/welcome.css'
-import {WelcomeHeader, WelcomeFooter, WelcomeContent} from '../components/welcome'
+import { WelcomeHeader, WelcomeFooter, WelcomeContent } from '../components/welcome'
 import { auth } from '../firebase'
-import {useNavigate} from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
+import Navbar from '../components/NavigationBar'
 
 const Welcome = () => {
 
@@ -16,11 +17,14 @@ const Welcome = () => {
     })
   }, [])
   return (
-    <div className = "welcome-page" >
+    <>
+      <Navbar />
+      <div className="welcome-page" >
         <WelcomeHeader />
         <WelcomeContent />
         <WelcomeFooter />
-    </div>
+      </div>
+    </>
   )
 }
 
