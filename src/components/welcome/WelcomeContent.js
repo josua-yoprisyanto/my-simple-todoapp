@@ -1,5 +1,8 @@
 import React from 'react'
 import "../../asset/css/welcome.css"
+import secureImage from '../../asset/images/secure.png'
+import simpleImage from '../../asset/images/simple.png'
+import learnImage from '../../asset/images/learn.png'
 
 const WelcomeContent = () => {
     return (
@@ -14,12 +17,12 @@ const WelcomeContent = () => {
                     <p>we make sure every task you make will be secure by your user authentication, so other people can't access your task</p>
                 </div>
                 <div className='positive-img'>
-                    <img alt="secure" src='./images/secure.png' />
+                    <img alt="secure" src={secureImage} />
                 </div>
             </div>
             <div className='positive'>
                 <div className='positive-img'>
-                    <img alt="simple" src='./images/simple.png' />
+                    <img alt="simple" src={simpleImage} />
                 </div>
                 <div className='positive-text'>
                     <h3>We are priority the way you organize</h3>
@@ -32,7 +35,7 @@ const WelcomeContent = () => {
                     <p>we make sure everything you do here is easy to learn and easy to use</p>
                 </div>
                 <div className='positive-img'>
-                    <img alt="learn" src='./images/learn.png' />
+                    <img alt="learn" src={learnImage} />
                 </div>
             </div>
             <div className='contact mt-5 mb-5' id="contact">
