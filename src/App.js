@@ -2,7 +2,6 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import { Dashboard, Welcome, Authentication, NotFound } from './pages/'
 
 function App() {
-
   return (
     <>
       <Router>
