@@ -1,5 +1,3 @@
-import WelcomeHeader from "./WelcomeHeader";
-import WelcomeContent from "./WelcomeContent";
-import WelcomeFooter from "./WelcomeFooter";
-
-export {WelcomeContent, WelcomeHeader, WelcomeFooter}
+export { default as WelcomeHeader } from './WelcomeHeader'
+export { default as WelcomeContent } from './WelcomeContent'
+export { default as WelcomeFooter } from './WelcomeFooter'

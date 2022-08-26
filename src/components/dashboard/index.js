@@ -1,4 +1,2 @@
-import DashboardCard from "./DashboardCard";
-import DashboardForm from "./DashboardForm";
-
-export {DashboardForm, DashboardCard}
+export { default as DashboardCard } from './DashboardCard'
+export { default as DashboardForm } from './DashboardForm'
