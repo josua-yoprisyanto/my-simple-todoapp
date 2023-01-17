@@ -33,7 +33,7 @@ const WelcomeContent = () => {
           <img alt="simple" src={simpleImage} />
         </div>
         <div className="positive-text">
-          <h3>We are prioritize the way you organize</h3>
+          <h3>We prioritize the way you organize</h3>
           <p>
             We make sure every task you make will have a simple view and make
             your work and life easier
@@ -42,7 +42,7 @@ const WelcomeContent = () => {
       </div>
       <div className="positive">
         <div className="positive-text">
-          <h3>We are prioritze your experience</h3>
+          <h3>We prioritize your experience</h3>
           <p>
             We make sure everything you do here is easy to learn and easy to use
           </p>
