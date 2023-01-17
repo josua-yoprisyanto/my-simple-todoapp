@@ -20,7 +20,7 @@ const WelcomeContent = () => {
         <div className="positive-text">
           <h3>We prioritize your privacy</h3>
           <p>
-            we make sure every task you make will be secured by your user
+            We make sure every task you make will be secured by your user
             authentication, so other people can't access your tasks
           </p>
         </div>
@@ -35,7 +35,7 @@ const WelcomeContent = () => {
         <div className="positive-text">
           <h3>We are prioritize the way you organize</h3>
           <p>
-            we make sure every task you make will have a simple view and make
+            We make sure every task you make will have a simple view and make
             your work and life easier
           </p>
         </div>
@@ -44,7 +44,7 @@ const WelcomeContent = () => {
         <div className="positive-text">
           <h3>We are prioritze your experience</h3>
           <p>
-            we make sure everything you do here is easy to learn and easy to use
+            We make sure everything you do here is easy to learn and easy to use
           </p>
         </div>
         <div className="positive-img">
