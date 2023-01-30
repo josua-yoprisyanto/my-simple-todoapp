@@ -52,7 +52,12 @@ const NavigationBar = () => {
           <Navbar.Collapse className="justify-content-end">
             <Navbar.Text>
               <li>
-                <Link to="home" duration={500} onClick={handleWelcome}>
+                <Link
+                  to="home"
+                  offset={-100}
+                  duration={500}
+                  onClick={handleWelcome}
+                >
                   Home
                 </Link>
               </li>
@@ -61,7 +66,7 @@ const NavigationBar = () => {
               <li>
                 <Link
                   to="about"
-                  offset={-50}
+                  offset={-100}
                   duration={500}
                   onClick={handleWelcome}
                 >
@@ -73,7 +78,7 @@ const NavigationBar = () => {
               <li>
                 <Link
                   to="contact"
-                  offset={-50}
+                  offset={-100}
                   duration={500}
                   onClick={handleWelcome}
                 >
